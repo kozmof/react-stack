@@ -5,6 +5,6 @@ import { props, StackDemo } from "./components/Demo";
 const { items, mapCallback } = props
 
 ReactDom.render(
-    <StackDemo items={items} mapCallback={mapCallback}/>,
+    <StackDemo items={ items } mapCallback={ mapCallback } />,
     document.getElementById("demo")
 );

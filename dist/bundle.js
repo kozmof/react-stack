@@ -106,7 +106,7 @@ class Item {
 }
 exports.props = {
     items: [new Item(0, "Red"), new Item(1, "Kasumi"), new Item(1, "Green")],
-    mapCallback: function (item) {
+    mapCallback: (item) => {
         return (React.createElement("tr", { key: item.id },
             React.createElement("td", null, item.name)));
     }
