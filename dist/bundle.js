@@ -99,16 +99,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "react");
 const Stack_1 = __webpack_require__(/*! ./Stack */ "./src/components/Stack.tsx");
 class Item {
-    constructor(id, name) {
+    constructor(id, name, place) {
         this.id = id;
         this.name = name;
+        this.place = place;
     }
 }
 exports.props = {
-    items: [new Item(0, "Red"), new Item(1, "Kasumi"), new Item(1, "Green")],
+    items: [new Item(0, "Red", "Mt. Silver"), new Item(1, "Kasumi", "Hanada City"), new Item(2, "Green", "Unknown")],
     mapCallback: (item) => {
         return (React.createElement("tr", { key: item.id },
-            React.createElement("td", null, item.name)));
+            React.createElement("td", null,
+                "Name: ",
+                item.name),
+            React.createElement("td", null,
+                "Place: ",
+                item.place)));
     }
 };
 class StackDemo extends Stack_1.ImmutableStack {
@@ -136,6 +142,7 @@ class ImmutableStack extends React.Component {
     constructor(props, initial_state) {
         super(props);
         this.state = initial_state;
+        this.props.mapCallback.bind(this);
     }
     render() {
         const items = this.props.items || [];
