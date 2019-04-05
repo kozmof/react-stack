@@ -13,6 +13,7 @@ export const props: StackProps<Item> = {
       <tr key={item.id}>     
         <td>Name: {item.name}</td>
         <td>Place: {item.place}</td>
+        <td><button onClick={()=>console.log("!")}>!</button></td>
       </tr>
     );
   }

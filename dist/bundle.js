@@ -114,7 +114,9 @@ exports.props = {
                 item.name),
             React.createElement("td", null,
                 "Place: ",
-                item.place)));
+                item.place),
+            React.createElement("td", null,
+                React.createElement("button", { onClick: () => console.log("!") }, "!"))));
     }
 };
 class StackDemo extends Stack_1.ImmutableStack {
