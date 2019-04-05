@@ -9,6 +9,7 @@ export class ImmutableStack<P extends StackProps<any>, S> extends React.Componen
   constructor(props: P, initial_state: S){
     super(props); 
     this.state = initial_state;
+    this.props.mapCallback.bind(this);
   }
 
   render(){
