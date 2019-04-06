@@ -4,15 +4,15 @@ export interface StackProps<T> {
   mapCallback(item: T): JSX.Element;
 }
 
-export interface ImmutableStackProps<T> extends StackProps<T> {
+export interface IMStackProps<T> extends StackProps<T> {
   items : Array<T>;
 }
 
-export interface MutableStackState<T> {
+export interface MStackState<T> {
   items : Array<T>;
 }
 
-export class ImmutableStack<P extends ImmutableStackProps<any>, S> extends React.Component<P, S> {
+export class IMStack<P extends IMStackProps<any>, S> extends React.Component<P, S> {
   constructor(props: P, initial_state: S){
     super(props); 
     this.state = initial_state;
@@ -32,7 +32,7 @@ export class ImmutableStack<P extends ImmutableStackProps<any>, S> extends React
   }
 }
 
-export class MutableStack<P extends StackProps<any>, S extends MutableStackState<any>> extends React.Component<P, S> {
+export class MStack<P extends StackProps<any>, S extends MStackState<any>> extends React.Component<P, S> {
   constructor(props: P, initial_state: S){
     super(props); 
     this.state = initial_state;
