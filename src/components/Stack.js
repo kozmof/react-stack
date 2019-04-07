@@ -22,12 +22,6 @@ var IMStack = /** @class */ (function (_super) {
         _this.callPack.bind(_this);
         return _this;
     }
-    IMStack.prototype.callPack = function () {
-        return function (item) {
-            return (React.createElement("tr", null,
-                React.createElement("td", null)));
-        };
-    };
     IMStack.prototype.render = function () {
         var items = this.props.items || [];
         var rows = items.map(this.callPack());
@@ -45,12 +39,6 @@ var MStack = /** @class */ (function (_super) {
         _this.callPack.bind(_this);
         return _this;
     }
-    MStack.prototype.callPack = function () {
-        return function (item) {
-            return (React.createElement("tr", null,
-                React.createElement("td", null)));
-        };
-    };
     MStack.prototype.render = function () {
         var rows = this.state.items.map(this.callPack());
         return (React.createElement("table", null,

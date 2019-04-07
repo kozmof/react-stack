@@ -1,6 +1,6 @@
 import * as React from "react";
 
-interface CallBack<T> {
+interface CallPack<T> {
   callPack(): (item: T) => JSX.Element;
 }
 
@@ -8,22 +8,14 @@ export interface StackItems<T> {
   items: Array<T>;
 }
 
-export class IMStack<T, P extends StackItems<T>, S> extends React.Component<P, S> implements CallBack<T> {
+export abstract class IMStack<T, P extends StackItems<T>, S> extends React.Component<P, S> implements CallPack<T> {
   constructor(props: P, initial_state: S){
     super(props); 
     this.state = initial_state;
     this.callPack.bind(this)
   }
 
-  callPack(){
-    return (item: T) => {
-      return(
-        <tr> 
-          <td></td>
-        </tr>
-      );
-    }
-  }
+  abstract callPack(): (item: T) => JSX.Element;
 
   render(){
     const items = this.props.items || [];
@@ -38,22 +30,14 @@ export class IMStack<T, P extends StackItems<T>, S> extends React.Component<P, S
   }
 }
 
-export class MStack<T, P, S extends StackItems<T>> extends React.Component<P, S> implements CallBack<T> {
+export abstract class MStack<T, P, S extends StackItems<T>> extends React.Component<P, S> implements CallPack<T> {
   constructor(props: P, initial_state: S){
     super(props); 
     this.state = initial_state;
     this.callPack.bind(this);
   }
 
-  callPack(){
-    return (item: T) => {
-      return(
-        <tr> 
-          <td></td>
-        </tr>
-      );
-    }
-  }
+  abstract callPack(): (item: T) => JSX.Element;
 
   render(){
     const rows = this.state.items.map(this.callPack());

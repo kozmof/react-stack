@@ -180,12 +180,6 @@ class IMStack extends React.Component {
         this.state = initial_state;
         this.callPack.bind(this);
     }
-    callPack() {
-        return (item) => {
-            return (React.createElement("tr", null,
-                React.createElement("td", null)));
-        };
-    }
     render() {
         const items = this.props.items || [];
         const rows = items.map(this.callPack());
@@ -199,12 +193,6 @@ class MStack extends React.Component {
         super(props);
         this.state = initial_state;
         this.callPack.bind(this);
-    }
-    callPack() {
-        return (item) => {
-            return (React.createElement("tr", null,
-                React.createElement("td", null)));
-        };
     }
     render() {
         const rows = this.state.items.map(this.callPack());
