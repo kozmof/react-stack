@@ -1,10 +1,13 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
-import { props, StackDemo } from "./components/Demo";
-
-const { items, mapCallback } = props
+import { props, IMStackDemo, MStackDemo } from "./components/Demo";
 
 ReactDom.render(
-  <StackDemo items={items} mapCallback={mapCallback} />,
+  <div>
+    <p> Immutable Stack</p>
+    <IMStackDemo items={props.items}/>
+    <p> Mutable Stack</p>
+    <MStackDemo />
+  </div> ,
   document.getElementById("demo")
 );

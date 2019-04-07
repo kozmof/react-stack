@@ -98,33 +98,67 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "react");
 const Stack_1 = __webpack_require__(/*! ./Stack */ "./src/components/Stack.tsx");
-class Item {
+class Trainer {
     constructor(id, name, place) {
         this.id = id;
         this.name = name;
         this.place = place;
     }
 }
-exports.props = {
-    items: [new Item(0, "Red", "Mt. Silver"), new Item(1, "Kasumi", "Hanada City"), new Item(2, "Green", "Unknown")],
-    mapCallback: (item) => {
-        return (React.createElement("tr", { key: item.id },
-            React.createElement("td", null,
-                "Name: ",
-                item.name),
-            React.createElement("td", null,
-                "Place: ",
-                item.place),
-            React.createElement("td", null,
-                React.createElement("button", { onClick: () => console.log("!") }, "!"))));
+class Pokemon {
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
     }
+}
+exports.props = {
+    items: [new Trainer(0, "Red", "Mt. Silver"), new Trainer(1, "Kasumi", "Hanada City"), new Trainer(2, "Green", "Unknown")],
 };
-class StackDemo extends Stack_1.ImmutableStack {
+class IMStackDemo extends Stack_1.IMStack {
     constructor(props) {
         super(props, {});
     }
+    callPack() {
+        return (item) => {
+            return (React.createElement("tr", { key: item.id },
+                React.createElement("td", null,
+                    "Name: ",
+                    item.name),
+                React.createElement("td", null,
+                    "Place: ",
+                    item.place),
+                React.createElement("td", null,
+                    React.createElement("button", { onClick: () => alert("!") }, "!"))));
+        };
+    }
 }
-exports.StackDemo = StackDemo;
+exports.IMStackDemo = IMStackDemo;
+class MStackDemo extends Stack_1.MStack {
+    constructor() {
+        super({}, { items: [new Pokemon(1, "Bulbasaur"), new Pokemon(4, "Charmander"), new Pokemon(7, "Squirtle")] });
+    }
+    callPack() {
+        const remove = (id) => {
+            const items = this.state.items;
+            for (let n = 0; n < items.length; n++) {
+                if (items[n].id === id) {
+                    items.splice(n, 1);
+                    this.setState({ items: items });
+                    return;
+                }
+            }
+        };
+        return (item) => {
+            return (React.createElement("tr", { key: item.id },
+                React.createElement("td", null,
+                    "Name: ",
+                    item.name),
+                React.createElement("td", null,
+                    React.createElement("button", { onClick: () => remove(item.id) }, "!"))));
+        };
+    }
+}
+exports.MStackDemo = MStackDemo;
 
 
 /***/ }),
@@ -140,20 +174,45 @@ exports.StackDemo = StackDemo;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "react");
-class ImmutableStack extends React.Component {
+class IMStack extends React.Component {
     constructor(props, initial_state) {
         super(props);
         this.state = initial_state;
-        this.props.mapCallback.bind(this);
+        this.callPack.bind(this);
+    }
+    callPack() {
+        return (item) => {
+            return (React.createElement("tr", null,
+                React.createElement("td", null)));
+        };
     }
     render() {
         const items = this.props.items || [];
-        const rows = items.map(this.props.mapCallback);
+        const rows = items.map(this.callPack());
         return (React.createElement("table", null,
             React.createElement("tbody", null, rows)));
     }
 }
-exports.ImmutableStack = ImmutableStack;
+exports.IMStack = IMStack;
+class MStack extends React.Component {
+    constructor(props, initial_state) {
+        super(props);
+        this.state = initial_state;
+        this.callPack.bind(this);
+    }
+    callPack() {
+        return (item) => {
+            return (React.createElement("tr", null,
+                React.createElement("td", null)));
+        };
+    }
+    render() {
+        const rows = this.state.items.map(this.callPack());
+        return (React.createElement("table", null,
+            React.createElement("tbody", null, rows)));
+    }
+}
+exports.MStack = MStack;
 
 
 /***/ }),
@@ -171,8 +230,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "react");
 const ReactDom = __webpack_require__(/*! react-dom */ "react-dom");
 const Demo_1 = __webpack_require__(/*! ./components/Demo */ "./src/components/Demo.tsx");
-const { items, mapCallback } = Demo_1.props;
-ReactDom.render(React.createElement(Demo_1.StackDemo, { items: items, mapCallback: mapCallback }), document.getElementById("demo"));
+ReactDom.render(React.createElement("div", null,
+    React.createElement("p", null, " Immutable Stack"),
+    React.createElement(Demo_1.IMStackDemo, { items: Demo_1.props.items }),
+    React.createElement("p", null, " Mutable Stack"),
+    React.createElement(Demo_1.MStackDemo, null)), document.getElementById("demo"));
 
 
 /***/ }),

@@ -1,27 +1,33 @@
 import * as React from "react";
 
-export interface StackProps<T> {
-  mapCallback(item: T): JSX.Element;
+interface CallBack<T> {
+  callPack(): (item: T) => JSX.Element;
 }
 
-export interface IMStackProps<T> extends StackProps<T> {
-  items : Array<T>;
+export interface StackItems<T> {
+  items: Array<T>;
 }
 
-export interface MStackState<T> {
-  items : Array<T>;
-}
-
-export class IMStack<P extends IMStackProps<any>, S> extends React.Component<P, S> {
+export class IMStack<T, P extends StackItems<T>, S> extends React.Component<P, S> implements CallBack<T> {
   constructor(props: P, initial_state: S){
     super(props); 
     this.state = initial_state;
-    this.props.mapCallback.bind(this);
+    this.callPack.bind(this)
+  }
+
+  callPack(){
+    return (item: T) => {
+      return(
+        <tr> 
+          <td></td>
+        </tr>
+      );
+    }
   }
 
   render(){
     const items = this.props.items || [];
-    const rows = items.map(this.props.mapCallback);
+    const rows = items.map(this.callPack());
     return(
       <table> 
         <tbody>
@@ -32,16 +38,25 @@ export class IMStack<P extends IMStackProps<any>, S> extends React.Component<P, 
   }
 }
 
-export class MStack<P extends StackProps<any>, S extends MStackState<any>> extends React.Component<P, S> {
+export class MStack<T, P, S extends StackItems<T>> extends React.Component<P, S> implements CallBack<T> {
   constructor(props: P, initial_state: S){
     super(props); 
     this.state = initial_state;
-    this.props.mapCallback.bind(this);
+    this.callPack.bind(this);
+  }
+
+  callPack(){
+    return (item: T) => {
+      return(
+        <tr> 
+          <td></td>
+        </tr>
+      );
+    }
   }
 
   render(){
-    const items = this.state.items || [];
-    const rows = items.map(this.props.mapCallback);
+    const rows = this.state.items.map(this.callPack());
     return(
       <table> 
         <tbody>
