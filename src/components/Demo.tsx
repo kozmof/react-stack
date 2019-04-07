@@ -25,7 +25,7 @@ export class IMStackDemo extends IMStack<Trainer, StackItems<Trainer>, {}> {
         <tr key={item.id}>     
           <td>Name: {item.name}</td>
           <td>Place: {item.place}</td>
-          <td><button onClick={()=>alert("!")}>!</button></td>
+          <td><button onClick={() => alert("!")}>!</button></td>
         </tr>
       );
     }
